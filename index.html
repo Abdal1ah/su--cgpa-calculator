@@ -125,7 +125,6 @@
             border-color: var(--accent-color);
         }
         
-        /* خانة الهدف مميزة */
         .target-input-box {
             background: #eef2f3;
             padding: 15px;
@@ -173,6 +172,18 @@
             background-color: #219a52;
             transform: translateY(-2px);
         }
+        .btn-remove {
+            background-color: #fff;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            padding: 8px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .btn-remove:hover {
+            background-color: var(--danger-color);
+            color: white;
+        }
 
         .course-box { 
             background: #fdfdfd; 
@@ -219,7 +230,6 @@
             margin-top: 5px;
         }
 
-        /* تنسيق الرسالة التحفيزية */
         .motivation-box {
             margin-top: 20px;
             padding: 15px;
@@ -228,6 +238,7 @@
             font-weight: bold;
             display: none;
             animation: fadeIn 0.5s ease-in-out;
+            text-align: center;
         }
         .motivation-box.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .motivation-box.close { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
@@ -300,7 +311,6 @@
 
     <div id="result_box" class="result"></div>
     
-    <!-- صندوق الرسائل التحفيزية -->
     <div id="motivation_box" class="motivation-box"></div>
     
     <div class="footer">
@@ -352,44 +362,76 @@
         courseCount++;
         const container = document.getElementById("courses_container");
         const html = `
-            <div class="course-box" id="course_${courseCount}">
+            <div class="course-box" id="course_div_${courseCount}">
+                <label>اسم المادة (اختياري):</label>
+                <input type="text" id="name_${courseCount}" placeholder="مثال: Calculus">
+
                 <label>عدد ساعات المادة:</label>
                 <input type="number" id="credits_${courseCount}" value="3">
                 
                 <label>حالة المادة (مهم جداً):</label>
-                <select id="status_${courseCount}">
+                <select id="status_${courseCount}" onchange="updateCourseDropdown(${courseCount})">
                     <option value="new">مادة جديدة (أول مرة تسجلها)</option>
                     <option value="retake_2">مادة معادة (تاني مرة تسجلها - تمسح الـ F)</option>
-                    <option value="retake_3">مادة معادة (تالت مرة أو أكتر - أقصى تقدير D)</option>
+                    <option value="retake_3_capped">مادة معادة (تالت مرة أو أكتر - أقصى تقدير D)</option>
+                    <option value="retake_3_uncapped">مادة معادة (أكثر من مرتين - بدون حد أقصى للتقدير)</option>
                 </select>
                 
                 <label>التقدير المتوقع:</label>
                 <select id="grade_${courseCount}" class="grade-select"></select>
+                
+                <button class="btn-remove" onclick="removeCourse(${courseCount})">❌ حذف المادة</button>
             </div>
         `;
         container.insertAdjacentHTML('beforeend', html);
-        updateSingleDropdown(document.getElementById(`grade_${courseCount}`));
+        updateCourseDropdown(courseCount);
     }
 
-    function updateSingleDropdown(selectElement) {
+    function removeCourse(id) {
+        const courseDiv = document.getElementById(`course_div_${id}`);
+        if(courseDiv) {
+            courseDiv.remove();
+        }
+    }
+
+    function updateCourseDropdown(id) {
+        let selectElement = document.getElementById(`grade_${id}`);
+        let statusElement = document.getElementById(`status_${id}`);
+        if(selectElement && statusElement) {
+            updateSingleDropdown(selectElement, statusElement.value);
+        }
+    }
+
+    function updateSingleDropdown(selectElement, statusValue) {
         let currentValue = selectElement.value || "A";
         selectElement.innerHTML = "";
+        
         for (const [grade, points] of Object.entries(currentGrades)) {
             if(grade === "A+") continue; 
+            
+            // إخفاء التقديرات الأعلى من D لو المادة مقفولة على D
+            if(statusValue === "retake_3_capped" && points > currentGrades["D"]) {
+                continue;
+            }
+
             let option = document.createElement("option");
             option.value = grade;
             option.text = `${grade} (${points.toFixed(1)} نقطة)`;
-            if(grade === currentValue) option.selected = true;
             selectElement.appendChild(option);
+        }
+
+        // التأكد من إن التقدير المختار حالياً لسه متاح، لو مش متاح نخليه D أو A
+        let optionsArray = Array.from(selectElement.options);
+        if (optionsArray.some(opt => opt.value === currentValue)) {
+            selectElement.value = currentValue;
+        } else {
+            selectElement.value = statusValue === "retake_3_capped" ? "D" : "A";
         }
     }
 
     function updateGradeDropdowns() {
         for (let i = 1; i <= courseCount; i++) {
-            let selectElement = document.getElementById("grade_" + i);
-            if(selectElement) {
-                updateSingleDropdown(selectElement);
-            }
+            updateCourseDropdown(i);
         }
     }
 
@@ -405,19 +447,19 @@
                 "🚀 مبروك! خطتك دي هتوصلك لهدفك وزيادة.. توكل على الله.",
                 "🔥 أسطورة! إنت كسرت حاجز الـ " + targetCGPA + " بامتياز.. بالتوفيق!"
             ];
-        } else if (diff <= 0.15) {
+        } else if (diff <= 0.20) {
             type = "close";
             messages = [
-                "💪 هانت جداً! باقي لك " + diff.toFixed(2) + " بس على هدفك.. تقدر تزق نفسك شوية؟",
+                "💪 هانت جداً! باقي لك " + diff.toFixed(3) + " بس على هدفك.. تقدر تزق نفسك شوية؟",
                 "🎯 إنت على بعد خطوة بسيطة جداً من هدفك! حاول تعلي تقدير مادة واحدة بس.",
                 "✨ يا بطل فاضل تكّة صغيرة وتوصل لـ " + targetCGPA + ".. لا تستسلم!"
             ];
         } else {
             type = "keep-going";
             messages = [
-                "⏳ لسه المشوار محتاج شوية مجهود.. حاول تزود ساعات الترم ده أو تحسن تقديراتك.",
-                "🛠️ الخطة دي مش هتوصلك لهدفك الترم ده.. جرب تلعب في التقديرات أو تضيف مادة كمان.",
-                "🧗 الطريق للـ " + targetCGPA + " محتاج تركيز أكتر.. إنت قدها، عدل خطتك وجرب تاني!"
+                "⏳ المشوار محتاج شوية مجهود كمان.. حاول تزود ساعات أو تحسن تقديراتك.",
+                "🛠️ الخطة دي مش هتوصلك لهدفك الترم ده.. جرب تعدل خطتك وتشد حيلك أكتر.",
+                "🧗 الطريق للـ " + targetCGPA + " محتاج تركيز.. إنت قدها، راجع حساباتك وجرب تاني!"
             ];
         }
         
@@ -442,14 +484,16 @@
 
         for (let i = 1; i <= courseCount; i++) {
             let creditsInput = document.getElementById("credits_" + i);
-            if(!creditsInput) continue;
+            if(!creditsInput) continue; // لو المادة اتحذفت
 
             let credits = parseFloat(creditsInput.value);
             let status = document.getElementById("status_" + i).value;
             let gradeStr = document.getElementById("grade_" + i).value;
             
             let gradePoint = currentGrades[gradeStr];
-            if(status === "retake_3" && gradePoint > currentGrades["D"]) {
+            
+            // أمان إضافي في الحسابات لو اختار أقصى تقدير D
+            if(status === "retake_3_capped" && gradePoint > currentGrades["D"]) {
                 gradePoint = currentGrades["D"];
             }
             
@@ -458,6 +502,7 @@
             termPoints += pointsGained;
             termHoursForGPA += credits;
 
+            // لو المادة جديدة بنزود الساعات، لو إعادة مبتتزودش لأنها بتمسح القديم
             if(status === "new") {
                 newTotalHours += credits;
             }
