@@ -98,6 +98,7 @@
             color: #7f8c8d;
             margin-top: 4px;
             display: block;
+            line-height: 1.4;
         }
 
         label { 
@@ -240,28 +241,44 @@
         <input type="number" id="target_cgpa" step="0.1" placeholder="مثال: 2.0 أو 3.0" value="2.0">
     </div>
 
-    <!-- قسم الإدخال الشامل -->
     <div class="main-inputs">
-        <h4 style="margin-top:0; color:var(--primary-color);">بياناتك الحالية (من الترانسكريبت):</h4>
+        <h4 style="margin-top:0; color:var(--primary-color);">بياناتك الحالية (من النتيجة السابقة):</h4>
         
         <label>المعدل التراكمي الحالي (CGPA):</label>
         <input type="number" id="current_cgpa" step="0.0001" placeholder="مثال: 1.5077">
 
-        <label>كيف تفضل إدخال بيانات الساعات؟</label>
+        <label>كيف تفضل إدخال بيانات الساعات؟ (اختر الطريقة الأسهل لك)</label>
         <select id="input_method" onchange="toggleInputMethod()">
-            <option value="points">لدي "النقاط التراكمية" (الموقع سيستنتج الساعات تلقائياً)</option>
-            <option value="hours">لدي "إجمالي الساعات" (أعرف إجمالي ساعاتي شاملاً مواد الرسوب)</option>
+            <option value="points">لدي "النقاط التراكمية" (الموقع سيستنتج الساعات تلقائياً - الأسهل والأدق)</option>
+            <option value="split">أعرف "الساعات الناجحة" و "ساعات الرسوب" (سنقوم بجمعهم لك)</option>
+            <option value="hours">لدي "إجمالي الساعات" التراكمية (رقم واحد يجمع الناجحة والراسبة)</option>
         </select>
         
         <div id="points_group">
             <label>إجمالي النقاط التراكمية (Cum QPoints):</label>
-            <span class="helper-text">هتلاقيها في الترانسكريبت تحت خانة النقاط (مثال: 58.8).</span>
+            <span class="helper-text">هتلاقيها في النتيجة تحت خانة النقاط (مثال: 58.8). بناءً عليها هنحسب ساعاتك بدقة.</span>
             <input type="number" id="current_points" step="0.1" placeholder="مثال: 58.8">
+        </div>
+
+        <div id="split_group" style="display:none;">
+            <label>الساعات المجتازة (الناجحة):</label>
+            <span class="helper-text">مجموع ساعات المواد التي نجحت بها (Earned Hours). مثال: 28 ساعة.</span>
+            <input type="number" id="earned_hours" placeholder="مثال: 28">
+
+            <label>ساعات الرسوب (مهم جداً):</label>
+            <span class="helper-text" style="color:var(--danger-color); font-weight:bold;">
+                اكتب مجموع ساعات كل المواد اللي جبت فيها (F) في نتيجتك القديمة.<br>
+                ⚠️ لازم تكتبهم كلهم <u>حتى لو هترجع تسجلهم وتعيدهم الترم ده!</u> لأنهم محسوبين في معدلك الحالي.
+            </span>
+            <input type="number" id="failed_hours" placeholder="مثال: 11">
         </div>
 
         <div id="hours_group" style="display:none;">
             <label>إجمالي الساعات التراكمية (شاملاً مواد الـ F):</label>
-            <span class="helper-text">أدخل كل الساعات التي دخلت في حساب معدلك، لا تكتب الساعات المجتازة (الناجحة) فقط!</span>
+            <span class="helper-text" style="color:var(--danger-color); font-weight:bold;">
+                أدخل إجمالي الساعات التي حاسبتك عليها الجامعة (الساعات التي نجحت فيها + الساعات التي رسبت فيها). <br>
+                لا تكتب الساعات الناجحة (Earned) فقط! الأفضل والأكثر أماناً اختيار "لدي النقاط التراكمية" من القائمة أعلاه.
+            </span>
             <input type="number" id="total_hours" placeholder="مثال: 39">
         </div>
     </div>
@@ -344,13 +361,9 @@ Reply in Arabic asking for my current CGPA, total hours (or points), and my plan
 
     function toggleInputMethod() {
         const method = document.getElementById("input_method").value;
-        if(method === "points") {
-            document.getElementById("points_group").style.display = "block";
-            document.getElementById("hours_group").style.display = "none";
-        } else {
-            document.getElementById("points_group").style.display = "none";
-            document.getElementById("hours_group").style.display = "block";
-        }
+        document.getElementById("points_group").style.display = method === "points" ? "block" : "none";
+        document.getElementById("split_group").style.display = method === "split" ? "block" : "none";
+        document.getElementById("hours_group").style.display = method === "hours" ? "block" : "none";
     }
 
     function updateScaleTable() {
@@ -461,6 +474,14 @@ Reply in Arabic asking for my current CGPA, total hours (or points), and my plan
                 alert("يرجى إدخال البيانات بشكل صحيح."); return;
             }
             if (currentCGPA > 0) totalHours = Math.round(currentPoints / currentCGPA);
+        } else if (inputMethod === "split") {
+            let earnedHours = parseFloat(document.getElementById("earned_hours").value);
+            let failedHours = parseFloat(document.getElementById("failed_hours").value);
+            if(isNaN(currentCGPA) || isNaN(earnedHours) || isNaN(failedHours) || isNaN(targetCGPA)) {
+                alert("يرجى إدخال البيانات بشكل صحيح."); return;
+            }
+            totalHours = earnedHours + failedHours;
+            currentPoints = currentCGPA * totalHours;
         } else {
             totalHours = parseFloat(document.getElementById("total_hours").value);
             if(isNaN(currentCGPA) || isNaN(totalHours) || isNaN(targetCGPA)) {
@@ -500,7 +521,12 @@ Reply in Arabic asking for my current CGPA, total hours (or points), and my plan
         let resBox = document.getElementById("result_box");
         resBox.style.display = "block";
         
-        let hoursMsg = inputMethod === "points" ? `<div class="calculated-hours">💡 بناءً على أرقامك، إجمالي الساعات المحسوبة عليك حالياً (شاملاً مواد الرسوب) هو: <strong>${totalHours} ساعة</strong>.</div>` : '';
+        let hoursMsg = '';
+        if (inputMethod === "points") {
+            hoursMsg = `<div class="calculated-hours">💡 بناءً على أرقامك، إجمالي الساعات المحسوبة عليك حالياً (شاملاً مواد الرسوب) هو: <strong>${totalHours} ساعة</strong>.</div>`;
+        } else if (inputMethod === "split") {
+            hoursMsg = `<div class="calculated-hours">💡 مجموع الساعات التراكمية التي تم الحساب عليها: <strong>${totalHours} ساعة</strong>.</div>`;
+        }
 
         resBox.innerHTML = `
             ${hoursMsg}
