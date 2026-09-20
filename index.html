@@ -12,6 +12,7 @@
             --success-color: #27ae60;
             --warning-color: #f39c12;
             --danger-color: #e74c3c;
+            --ai-color: #8e44ad;
             --bg-color: #f8f9fa;
             --box-bg: #ffffff;
             --text-color: #333333;
@@ -249,6 +250,61 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* تنسيق قسم الذكاء الاصطناعي الجديد */
+        .btn-ai {
+            background-color: var(--ai-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
+            margin-top: 30px;
+        }
+        .btn-ai:hover {
+            background-color: #732d91;
+            transform: translateY(-2px);
+        }
+        .ai-section {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: #f9f0ff;
+            border-radius: 10px;
+            border: 1px solid #e8d5f8;
+            animation: fadeIn 0.4s ease;
+        }
+        .ai-section h3 {
+            color: var(--ai-color);
+            margin-top: 0;
+        }
+        .ai-section p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .prompt-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed var(--ai-color);
+            font-size: 13px;
+            color: #333;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        .btn-copy {
+            background-color: #bdc3c7;
+            color: #2c3e50;
+            padding: 10px;
+            font-size: 14px;
+            margin-top: 0;
+        }
+        .btn-copy:hover {
+            background-color: #95a5a6;
+        }
+
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -313,6 +369,27 @@
     
     <div id="motivation_box" class="motivation-box"></div>
     
+    <!-- قسم الذكاء الاصطناعي الجديد -->
+    <button class="btn-ai" onclick="toggleAISection()">🤖 محتاج استشارة أكاديمية مفصلة؟ (AI)</button>
+    <div class="ai-section" id="ai_section">
+        <h3>مساعدك الأكاديمي الشخصي</h3>
+        <p>لو عندك سيناريوهات معقدة (زي إنك مش عارف تختار مواد إيه الترم ده، أو عايز تسأل الذكاء الاصطناعي إيه اللي يحصل لو سقطت لا قدر الله أو لو أجلت مادة)، الموقع هنا بيحسبلك أرقام بس. لكن لو عايز تتناقش وتاخد استشارة كاملة، تقدر تستخدم أي ذكاء اصطناعي (زي ChatGPT أو Gemini).</p>
+        <p>كل اللي عليك تعمله إنك <strong>تنسخ الرسالة (البرومبت) اللي تحت دي وتبعتهاله</strong>، وهو هيتفهم قوانين جامعتك المعقدة كلها لوحده، وهيبدأ يسألك ويحسبلك ويتناقش معاك بالعربي!</p>
+        
+        <div class="prompt-box" id="prompt_text">
+Act as an expert Academic Advisor. I need you to calculate my projected Term GPA and Cumulative GPA (CGPA) accurately. You MUST reply entirely in Arabic.
+
+First, you MUST understand and strictly follow my university's specific grading rules:
+1. Grade Point Mapping: A+/A = 4.0, A- = 3.7, B+ = 3.3, B = 3.0, C+ = 2.7, C = 2.4, D = 2.0, F = 0.
+2. CGPA Formula: CGPA = Total Cumulative Quality Points / Total Attempted Credit Hours.
+3. Retake Policy (Crucial): If I retake a previously failed course (F), the new quality points are added to the cumulative points, BUT the course credit hours are NOT added to the "Total Attempted Credit Hours" denominator again. It simply replaces the old 0 points.
+4. Registration Limits: If it is my 3rd time (or more) registering for a course, the maximum grade point I can receive is 2.0 (D).
+
+Reply in Arabic asking for my current CGPA, total hours, and my planned courses for this term (with credits and if they are retakes). Then guide me step-by-step and answer any questions I have about different scenarios.
+        </div>
+        <button class="btn-copy" onclick="copyPrompt()" id="copy_btn">📋 انسخ البرومبت الآن</button>
+    </div>
+
     <div class="footer">
         صُنع بواسطة <span>❤</span> Abdullah_IT240 <br>
         لا تنسونا من صالح دعائكم
@@ -409,7 +486,6 @@
         for (const [grade, points] of Object.entries(currentGrades)) {
             if(grade === "A+") continue; 
             
-            // إخفاء التقديرات الأعلى من D لو المادة مقفولة على D
             if(statusValue === "retake_3_capped" && points > currentGrades["D"]) {
                 continue;
             }
@@ -420,7 +496,6 @@
             selectElement.appendChild(option);
         }
 
-        // التأكد من إن التقدير المختار حالياً لسه متاح، لو مش متاح نخليه D أو A
         let optionsArray = Array.from(selectElement.options);
         if (optionsArray.some(opt => opt.value === currentValue)) {
             selectElement.value = currentValue;
@@ -484,7 +559,7 @@
 
         for (let i = 1; i <= courseCount; i++) {
             let creditsInput = document.getElementById("credits_" + i);
-            if(!creditsInput) continue; // لو المادة اتحذفت
+            if(!creditsInput) continue; 
 
             let credits = parseFloat(creditsInput.value);
             let status = document.getElementById("status_" + i).value;
@@ -492,7 +567,6 @@
             
             let gradePoint = currentGrades[gradeStr];
             
-            // أمان إضافي في الحسابات لو اختار أقصى تقدير D
             if(status === "retake_3_capped" && gradePoint > currentGrades["D"]) {
                 gradePoint = currentGrades["D"];
             }
@@ -502,7 +576,6 @@
             termPoints += pointsGained;
             termHoursForGPA += credits;
 
-            // لو المادة جديدة بنزود الساعات، لو إعادة مبتتزودش لأنها بتمسح القديم
             if(status === "new") {
                 newTotalHours += credits;
             }
@@ -522,12 +595,37 @@
             <strong>${newCGPA.toFixed(3)}</strong>
         `;
 
-        // عرض الرسالة التحفيزية
         let motiResult = getMotivationMessage(newCGPA, targetCGPA);
         let motiBox = document.getElementById("motivation_box");
         motiBox.className = "motivation-box " + motiResult.type;
         motiBox.innerHTML = motiResult.message;
         motiBox.style.display = "block";
+    }
+
+    // دوال قسم الذكاء الاصطناعي
+    function toggleAISection() {
+        let section = document.getElementById("ai_section");
+        if (section.style.display === "block") {
+            section.style.display = "none";
+        } else {
+            section.style.display = "block";
+        }
+    }
+
+    function copyPrompt() {
+        let promptText = document.getElementById("prompt_text").innerText;
+        navigator.clipboard.writeText(promptText).then(() => {
+            let copyBtn = document.getElementById("copy_btn");
+            copyBtn.innerText = "✅ تم النسخ بنجاح!";
+            copyBtn.style.backgroundColor = "#27ae60";
+            copyBtn.style.color = "white";
+            
+            setTimeout(() => {
+                copyBtn.innerText = "📋 انسخ البرومبت الآن";
+                copyBtn.style.backgroundColor = "#bdc3c7";
+                copyBtn.style.color = "#2c3e50";
+            }, 3000);
+        });
     }
 
     // تهيئة الصفحة
