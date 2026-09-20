@@ -73,9 +73,7 @@
             border-radius: 8px;
             border-right: 4px solid var(--accent-color);
         }
-        .system-info details {
-            cursor: pointer;
-        }
+        .system-info details { cursor: pointer; }
         .system-info summary {
             font-weight: bold;
             color: var(--accent-color);
@@ -93,14 +91,13 @@
             padding: 6px;
             text-align: center;
         }
-        .scale-table th {
-            background-color: #e9ecef;
-        }
-        .manual-calc {
-            font-size: 13px;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #ccc;
+        .scale-table th { background-color: #e9ecef; }
+
+        .helper-text {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 4px;
+            display: block;
         }
 
         label { 
@@ -133,189 +130,86 @@
             border: 1px solid #dee2e6;
             margin-bottom: 20px;
         }
-        .target-input-box label {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 15px;
-        }
-        .target-input-box input {
-            border-color: var(--primary-color);
-            font-weight: bold;
-            color: var(--primary-color);
+        .target-input-box label { color: var(--primary-color); margin-top: 0; font-size: 15px; }
+        .target-input-box input { border-color: var(--primary-color); font-weight: bold; color: var(--primary-color); }
+
+        .main-inputs {
+            background: #fff;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         button { 
-            width: 100%;
-            padding: 14px; 
-            border-radius: 8px; 
-            border: none; 
-            cursor: pointer; 
-            font-size: 16px; 
-            font-weight: bold;
-            margin-top: 20px; 
+            width: 100%; padding: 14px; border-radius: 8px; border: none; 
+            cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 20px; 
             transition: all 0.3s ease;
         }
         .btn-add {
-            background-color: transparent;
-            color: var(--accent-color);
+            background-color: transparent; color: var(--accent-color);
             border: 2px dashed var(--accent-color);
         }
-        .btn-add:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-        }
+        .btn-add:hover { background-color: rgba(52, 152, 219, 0.1); }
         .btn-calc {
-            background-color: var(--success-color);
-            color: white;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-            margin-bottom: 10px;
+            background-color: var(--success-color); color: white;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3); margin-bottom: 10px;
         }
-        .btn-calc:hover {
-            background-color: #219a52;
-            transform: translateY(-2px);
-        }
+        .btn-calc:hover { background-color: #219a52; transform: translateY(-2px); }
         .btn-remove {
-            background-color: #fff;
-            color: var(--danger-color);
-            border: 1px solid var(--danger-color);
-            padding: 8px;
-            font-size: 14px;
-            margin-top: 10px;
+            background-color: #fff; color: var(--danger-color);
+            border: 1px solid var(--danger-color); padding: 8px; font-size: 14px; margin-top: 10px;
         }
-        .btn-remove:hover {
-            background-color: var(--danger-color);
-            color: white;
-        }
+        .btn-remove:hover { background-color: var(--danger-color); color: white; }
 
         .course-box { 
-            background: #fdfdfd; 
-            padding: 15px 20px; 
-            border: 1px solid #e1e8ed; 
-            border-radius: 10px; 
-            margin-top: 15px; 
-            border-right: 4px solid var(--accent-color);
+            background: #fdfdfd; padding: 15px 20px; border: 1px solid #e1e8ed; 
+            border-radius: 10px; margin-top: 15px; border-right: 4px solid var(--accent-color);
         }
         
         .disclaimer {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-top: 10px;
-            text-align: center;
-            line-height: 1.5;
-        }
-        .disclaimer strong {
-            display: block;
-            margin-bottom: 5px;
-            color: #664d03;
+            background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;
+            padding: 12px 15px; border-radius: 8px; font-size: 13px; margin-top: 10px;
+            text-align: center; line-height: 1.5;
         }
 
         .result { 
-            margin-top: 25px; 
-            padding: 20px; 
+            margin-top: 25px; padding: 20px; 
             background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 100%); 
-            color: var(--primary-color); 
-            border-radius: 10px; 
-            font-size: 18px;
-            text-align: center;
-            display: none; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: var(--primary-color); border-radius: 10px; font-size: 18px;
+            text-align: center; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             border: 1px solid #b2dfdb;
         }
-        .result strong {
-            font-size: 24px;
-            color: var(--success-color);
-            display: block;
-            margin-top: 5px;
+        .result strong { font-size: 24px; color: var(--success-color); display: block; margin-top: 5px; }
+        .calculated-hours {
+            font-size: 14px; color: #555; background: #fff; padding: 8px;
+            border-radius: 5px; margin-bottom: 15px; border: 1px solid #ccc;
         }
 
         .motivation-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-            text-align: center;
+            margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 16px;
+            font-weight: bold; display: none; text-align: center;
         }
         .motivation-box.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .motivation-box.close { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
         .motivation-box.keep-going { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* تنسيق قسم الذكاء الاصطناعي الجديد */
-        .btn-ai {
-            background-color: var(--ai-color);
-            color: white;
-            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
-            margin-top: 30px;
-        }
-        .btn-ai:hover {
-            background-color: #732d91;
-            transform: translateY(-2px);
-        }
+        .btn-ai { background-color: var(--ai-color); color: white; box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3); margin-top: 30px; }
+        .btn-ai:hover { background-color: #732d91; }
         .ai-section {
-            display: none;
-            margin-top: 15px;
-            padding: 20px;
-            background: #f9f0ff;
-            border-radius: 10px;
-            border: 1px solid #e8d5f8;
-            animation: fadeIn 0.4s ease;
+            display: none; margin-top: 15px; padding: 20px; background: #f9f0ff;
+            border-radius: 10px; border: 1px solid #e8d5f8;
         }
-        .ai-section h3 {
-            color: var(--ai-color);
-            margin-top: 0;
-        }
-        .ai-section p {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 15px;
-        }
+        .ai-section h3 { color: var(--ai-color); margin-top: 0; }
         .prompt-box {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed var(--ai-color);
-            font-size: 13px;
-            color: #333;
-            direction: ltr;
-            text-align: left;
-            overflow-x: auto;
-            max-height: 150px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-            font-family: monospace;
+            background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed var(--ai-color);
+            font-size: 13px; direction: ltr; text-align: left; overflow-x: auto;
+            max-height: 150px; overflow-y: auto; margin-bottom: 15px; font-family: monospace;
         }
-        .btn-copy {
-            background-color: #bdc3c7;
-            color: #2c3e50;
-            padding: 10px;
-            font-size: 14px;
-            margin-top: 0;
-        }
-        .btn-copy:hover {
-            background-color: #95a5a6;
-        }
+        .btn-copy { background-color: #bdc3c7; color: #2c3e50; padding: 10px; margin-top: 0; }
 
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 15px;
-            color: #7f8c8d;
-            font-weight: bold;
-            line-height: 1.8;
-        }
-        .footer span {
-            color: #e74c3c;
-        }
+        .footer { text-align: center; margin-top: 30px; font-size: 15px; color: #7f8c8d; font-weight: bold; line-height: 1.8; }
+        .footer span { color: #e74c3c; }
     </style>
 </head>
 <body>
@@ -323,7 +217,7 @@
 <div class="container">
     <h2>حاسبة المعدل التراكمي (CGPA)</h2>
     
-    <label>اختر لائحة درجاتك:</label>
+    <label>اختر لائحة درجاتك (سيتم تحديث البرومبت الذكي بناءً عليها):</label>
     <div class="system-selector">
         <button class="system-btn active" id="btn_old_system" onclick="setSystem('old')">اللائحة القديمة (المتسامحة)</button>
         <button class="system-btn" id="btn_new_system" onclick="setSystem('new')">اللائحة الجديدة (العالمية)</button>
@@ -331,14 +225,12 @@
     
     <div class="system-info">
         <details>
-            <summary>اضغط هنا لمعرفة تفاصيل نقاط اللائحة وطريقة الحساب</summary>
+            <summary>اضغط هنا لمعرفة تفاصيل اللائحة وطريقة الحساب</summary>
             <div id="scale_details"></div>
-            <div class="manual-calc">
-                <strong>كيف يتم حساب الـ CGPA؟</strong><br>
-                1. <strong>نقاط المادة</strong> = عدد الساعات × نقاط التقدير الموضحة بالجدول.<br>
-                2. <strong>للمواد الجديدة:</strong> تضاف نقاط المادة لإجمالي نقاطك، وتضاف ساعاتها لإجمالي ساعاتك التراكمية.<br>
-                3. <strong>لمواد الإعادة (مادة كنت راسب فيها F):</strong> تضاف النقاط الجديدة لإجمالي نقاطك، <em>ولكن لا تضاف ساعاتها للمقام</em> لأنها استبدلت ساعات الرسوب القديمة المحسوبة مسبقاً.<br>
-                4. <strong>المعدل التراكمي</strong> = (إجمالي النقاط القديمة + الجديدة) ÷ إجمالي الساعات التراكمية.
+            <div style="font-size:12px; margin-top:10px; border-top:1px dashed #ccc; padding-top:10px;">
+                <strong>💡 كيف تحسب إجمالي ساعاتك التراكمية يدوياً؟</strong><br>
+                إذا كانت جامعتك لا تعرض إجمالي الساعات المحسوبة (شاملاً مواد الرسوب)، يمكنك حسابها كالتالي:<br>
+                <em>(إجمالي النقاط التراكمية) ÷ (المعدل التراكمي CGPA) = إجمالي الساعات.</em>
             </div>
         </details>
     </div>
@@ -348,45 +240,50 @@
         <input type="number" id="target_cgpa" step="0.1" placeholder="مثال: 2.0 أو 3.0" value="2.0">
     </div>
 
-    <label>المعدل التراكمي الحالي (CGPA):</label>
-    <input type="number" id="current_cgpa" step="0.0001" placeholder="مثال: 1.5077">
-    
-    <label>إجمالي الساعات التراكمية (التي دخلت في حساب الـ CGPA الحالي):</label>
-    <input type="number" id="total_hours" placeholder="مثال: 39">
+    <!-- قسم الإدخال الشامل -->
+    <div class="main-inputs">
+        <h4 style="margin-top:0; color:var(--primary-color);">بياناتك الحالية (من الترانسكريبت):</h4>
+        
+        <label>المعدل التراكمي الحالي (CGPA):</label>
+        <input type="number" id="current_cgpa" step="0.0001" placeholder="مثال: 1.5077">
+
+        <label>كيف تفضل إدخال بيانات الساعات؟</label>
+        <select id="input_method" onchange="toggleInputMethod()">
+            <option value="points">لدي "النقاط التراكمية" (الموقع سيستنتج الساعات تلقائياً)</option>
+            <option value="hours">لدي "إجمالي الساعات" (أعرف إجمالي ساعاتي شاملاً مواد الرسوب)</option>
+        </select>
+        
+        <div id="points_group">
+            <label>إجمالي النقاط التراكمية (Cum QPoints):</label>
+            <span class="helper-text">هتلاقيها في الترانسكريبت تحت خانة النقاط (مثال: 58.8).</span>
+            <input type="number" id="current_points" step="0.1" placeholder="مثال: 58.8">
+        </div>
+
+        <div id="hours_group" style="display:none;">
+            <label>إجمالي الساعات التراكمية (شاملاً مواد الـ F):</label>
+            <span class="helper-text">أدخل كل الساعات التي دخلت في حساب معدلك، لا تكتب الساعات المجتازة (الناجحة) فقط!</span>
+            <input type="number" id="total_hours" placeholder="مثال: 39">
+        </div>
+    </div>
 
     <div id="courses_container"></div>
 
     <button class="btn-add" onclick="addCourse()">+ إضافة مادة للترم الحالي</button>
-    
     <button class="btn-calc" onclick="calculateCGPA()">احسب المعدل المتوقع الآن</button>
 
     <div class="disclaimer">
         <strong>⚠️ تنبيه هام</strong>
-        يرجى العلم أن هذه النتائج هي قيم استرشادية تقريبية مبنية على المدخلات التي قمت بكتابتها. قد تختلف النتيجة النهائية الرسمية المعتمدة من الجامعة بناءً على عوامل أخرى. لا تعتمد على هذه الأرقام بنسبة 100% في قراراتك الأكاديمية المصيرية.
+        يرجى العلم أن هذه النتائج تقريبية. تعتمد دقة الحساب على صحة المدخلات.
     </div>
 
     <div id="result_box" class="result"></div>
-    
     <div id="motivation_box" class="motivation-box"></div>
     
-    <!-- قسم الذكاء الاصطناعي الجديد -->
     <button class="btn-ai" onclick="toggleAISection()">🤖 محتاج استشارة أكاديمية مفصلة؟ (AI)</button>
     <div class="ai-section" id="ai_section">
         <h3>مساعدك الأكاديمي الشخصي</h3>
-        <p>لو عندك سيناريوهات معقدة (زي إنك مش عارف تختار مواد إيه الترم ده، أو عايز تسأل الذكاء الاصطناعي إيه اللي يحصل لو سقطت لا قدر الله أو لو أجلت مادة)، الموقع هنا بيحسبلك أرقام بس. لكن لو عايز تتناقش وتاخد استشارة كاملة، تقدر تستخدم أي ذكاء اصطناعي (زي ChatGPT أو Gemini).</p>
-        <p>كل اللي عليك تعمله إنك <strong>تنسخ الرسالة (البرومبت) اللي تحت دي وتبعتهاله</strong>، وهو هيتفهم قوانين جامعتك المعقدة كلها لوحده، وهيبدأ يسألك ويحسبلك ويتناقش معاك بالعربي!</p>
-        
-        <div class="prompt-box" id="prompt_text">
-Act as an expert Academic Advisor. I need you to calculate my projected Term GPA and Cumulative GPA (CGPA) accurately. You MUST reply entirely in Arabic.
-
-First, you MUST understand and strictly follow my university's specific grading rules:
-1. Grade Point Mapping: A+/A = 4.0, A- = 3.7, B+ = 3.3, B = 3.0, C+ = 2.7, C = 2.4, D = 2.0, F = 0.
-2. CGPA Formula: CGPA = Total Cumulative Quality Points / Total Attempted Credit Hours.
-3. Retake Policy (Crucial): If I retake a previously failed course (F), the new quality points are added to the cumulative points, BUT the course credit hours are NOT added to the "Total Attempted Credit Hours" denominator again. It simply replaces the old 0 points.
-4. Registration Limits: If it is my 3rd time (or more) registering for a course, the maximum grade point I can receive is 2.0 (D).
-
-Reply in Arabic asking for my current CGPA, total hours, and my planned courses for this term (with credits and if they are retakes). Then guide me step-by-step and answer any questions I have about different scenarios.
-        </div>
+        <p>البرومبت أدناه <strong>مُحدّث تلقائياً</strong> بناءً على اللائحة التي اخترتها في الأعلى. انسخه وأرسله لأي ذكاء اصطناعي (مثل ChatGPT) للحصول على خطة مخصصة وإجابة على أي سيناريو أكاديمي معقد.</p>
+        <div class="prompt-box" id="prompt_text"></div>
         <button class="btn-copy" onclick="copyPrompt()" id="copy_btn">📋 انسخ البرومبت الآن</button>
     </div>
 
@@ -400,6 +297,26 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
     const oldSystemGrades = {"A+": 4.0, "A": 4.0, "A-": 3.7, "B+": 3.3, "B": 3.0, "C+": 2.7, "C": 2.4, "D": 2.0, "F": 0.0};
     const newSystemGrades = {"A+": 4.0, "A": 4.0, "A-": 3.7, "B+": 3.3, "B": 3.0, "C+": 2.3, "C": 2.0, "D": 1.0, "F": 0.0};
     
+    const promptOld = `Act as an expert Academic Advisor. I need you to calculate my projected Term GPA and Cumulative GPA (CGPA) accurately. You MUST reply entirely in Arabic.
+
+First, strictly follow my university's grading rules (OLD SYSTEM):
+1. Grade Point Mapping: A+/A = 4.0, A- = 3.7, B+ = 3.3, B = 3.0, C+ = 2.7, C = 2.4, D = 2.0, F = 0.
+2. CGPA = Total Cumulative Quality Points / Total Attempted Credit Hours.
+3. Retake Policy: If I retake a previously failed course (F), the new quality points are added, BUT the course credit hours are NOT added to the "Total Attempted Credit Hours" denominator again.
+4. Registration Limits: If it is my 3rd time (or more) registering for a course, the maximum grade point I can receive is 2.0 (D).
+
+Reply in Arabic asking for my current CGPA, total hours (or points), and my planned courses. Then guide me step-by-step.`;
+
+    const promptNew = `Act as an expert Academic Advisor. I need you to calculate my projected Term GPA and Cumulative GPA (CGPA) accurately. You MUST reply entirely in Arabic.
+
+First, strictly follow my university's grading rules (NEW/GLOBAL SYSTEM):
+1. Grade Point Mapping: A+/A = 4.0, A- = 3.7, B+ = 3.3, B = 3.0, C+ = 2.3, C = 2.0, D = 1.0, F = 0.
+2. CGPA = Total Cumulative Quality Points / Total Attempted Credit Hours.
+3. Retake Policy: If I retake a previously failed course (F), the new quality points are added, BUT the course credit hours are NOT added to the "Total Attempted Credit Hours" denominator again.
+4. Registration Limits: If it is my 3rd time (or more) registering for a course, the maximum grade point I can receive is 1.0 (D).
+
+Reply in Arabic asking for my current CGPA, total hours (or points), and my planned courses. Then guide me step-by-step.`;
+
     let currentSystem = 'old'; 
     let currentGrades = oldSystemGrades;
     let courseCount = 0;
@@ -408,18 +325,32 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
         currentSystem = system;
         const btnOld = document.getElementById("btn_old_system");
         const btnNew = document.getElementById("btn_new_system");
+        const promptBox = document.getElementById("prompt_text");
 
         if(system === 'old') {
             currentGrades = oldSystemGrades;
             btnOld.classList.add("active");
             btnNew.classList.remove("active");
+            promptBox.innerText = promptOld;
         } else {
             currentGrades = newSystemGrades;
             btnNew.classList.add("active");
             btnOld.classList.remove("active");
+            promptBox.innerText = promptNew;
         }
         updateScaleTable();
         updateGradeDropdowns();
+    }
+
+    function toggleInputMethod() {
+        const method = document.getElementById("input_method").value;
+        if(method === "points") {
+            document.getElementById("points_group").style.display = "block";
+            document.getElementById("hours_group").style.display = "none";
+        } else {
+            document.getElementById("points_group").style.display = "none";
+            document.getElementById("hours_group").style.display = "block";
+        }
     }
 
     function updateScaleTable() {
@@ -442,10 +373,8 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
             <div class="course-box" id="course_div_${courseCount}">
                 <label>اسم المادة (اختياري):</label>
                 <input type="text" id="name_${courseCount}" placeholder="مثال: Calculus">
-
                 <label>عدد ساعات المادة:</label>
                 <input type="number" id="credits_${courseCount}" value="3">
-                
                 <label>حالة المادة (مهم جداً):</label>
                 <select id="status_${courseCount}" onchange="updateCourseDropdown(${courseCount})">
                     <option value="new">مادة جديدة (أول مرة تسجلها)</option>
@@ -453,10 +382,8 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
                     <option value="retake_3_capped">مادة معادة (تالت مرة أو أكتر - أقصى تقدير D)</option>
                     <option value="retake_3_uncapped">مادة معادة (أكثر من مرتين - بدون حد أقصى للتقدير)</option>
                 </select>
-                
                 <label>التقدير المتوقع:</label>
                 <select id="grade_${courseCount}" class="grade-select"></select>
-                
                 <button class="btn-remove" onclick="removeCourse(${courseCount})">❌ حذف المادة</button>
             </div>
         `;
@@ -466,17 +393,13 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
 
     function removeCourse(id) {
         const courseDiv = document.getElementById(`course_div_${id}`);
-        if(courseDiv) {
-            courseDiv.remove();
-        }
+        if(courseDiv) courseDiv.remove();
     }
 
     function updateCourseDropdown(id) {
         let selectElement = document.getElementById(`grade_${id}`);
         let statusElement = document.getElementById(`status_${id}`);
-        if(selectElement && statusElement) {
-            updateSingleDropdown(selectElement, statusElement.value);
-        }
+        if(selectElement && statusElement) updateSingleDropdown(selectElement, statusElement.value);
     }
 
     function updateSingleDropdown(selectElement, statusValue) {
@@ -485,10 +408,7 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
         
         for (const [grade, points] of Object.entries(currentGrades)) {
             if(grade === "A+") continue; 
-            
-            if(statusValue === "retake_3_capped" && points > currentGrades["D"]) {
-                continue;
-            }
+            if(statusValue === "retake_3_capped" && points > currentGrades["D"]) continue;
 
             let option = document.createElement("option");
             option.value = grade;
@@ -514,45 +434,41 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
         const diff = targetCGPA - newCGPA;
         let messages = [];
         let type = "";
-
         if (newCGPA >= targetCGPA) {
             type = "success";
-            messages = [
-                "🎉 عاش جداً يا بطل! إنت كده عديت هدفك.. استمر!",
-                "🚀 مبروك! خطتك دي هتوصلك لهدفك وزيادة.. توكل على الله.",
-                "🔥 أسطورة! إنت كسرت حاجز الـ " + targetCGPA + " بامتياز.. بالتوفيق!"
-            ];
+            messages = ["🎉 عاش جداً يا بطل! إنت كده عديت هدفك.. استمر!"];
         } else if (diff <= 0.20) {
             type = "close";
-            messages = [
-                "💪 هانت جداً! باقي لك " + diff.toFixed(3) + " بس على هدفك.. تقدر تزق نفسك شوية؟",
-                "🎯 إنت على بعد خطوة بسيطة جداً من هدفك! حاول تعلي تقدير مادة واحدة بس.",
-                "✨ يا بطل فاضل تكّة صغيرة وتوصل لـ " + targetCGPA + ".. لا تستسلم!"
-            ];
+            messages = ["💪 هانت جداً! باقي لك " + diff.toFixed(3) + " بس على هدفك!"];
         } else {
             type = "keep-going";
-            messages = [
-                "⏳ المشوار محتاج شوية مجهود كمان.. حاول تزود ساعات أو تحسن تقديراتك.",
-                "🛠️ الخطة دي مش هتوصلك لهدفك الترم ده.. جرب تعدل خطتك وتشد حيلك أكتر.",
-                "🧗 الطريق للـ " + targetCGPA + " محتاج تركيز.. إنت قدها، راجع حساباتك وجرب تاني!"
-            ];
+            messages = ["⏳ المشوار محتاج مجهود كمان.. راجع خطتك وحسن التقديرات."];
         }
-        
-        let randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        return { message: randomMsg, type: type };
+        return { message: messages[0], type: type };
     }
 
     function calculateCGPA() {
         let currentCGPA = parseFloat(document.getElementById("current_cgpa").value);
-        let totalHours = parseFloat(document.getElementById("total_hours").value);
         let targetCGPA = parseFloat(document.getElementById("target_cgpa").value);
+        let inputMethod = document.getElementById("input_method").value;
         
-        if(isNaN(currentCGPA) || isNaN(totalHours) || totalHours <= 0 || isNaN(targetCGPA)) {
-            alert("يرجى إدخال المعدل الحالي والساعات التراكمية والهدف بشكل صحيح.");
-            return;
+        let totalHours = 0;
+        let currentPoints = 0;
+
+        if (inputMethod === "points") {
+            currentPoints = parseFloat(document.getElementById("current_points").value);
+            if(isNaN(currentCGPA) || isNaN(currentPoints) || isNaN(targetCGPA)) {
+                alert("يرجى إدخال البيانات بشكل صحيح."); return;
+            }
+            if (currentCGPA > 0) totalHours = Math.round(currentPoints / currentCGPA);
+        } else {
+            totalHours = parseFloat(document.getElementById("total_hours").value);
+            if(isNaN(currentCGPA) || isNaN(totalHours) || isNaN(targetCGPA)) {
+                alert("يرجى إدخال البيانات بشكل صحيح."); return;
+            }
+            currentPoints = currentCGPA * totalHours;
         }
 
-        let currentPoints = currentCGPA * totalHours;
         let termPoints = 0;
         let termHoursForGPA = 0; 
         let newTotalHours = totalHours;
@@ -564,7 +480,6 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
             let credits = parseFloat(creditsInput.value);
             let status = document.getElementById("status_" + i).value;
             let gradeStr = document.getElementById("grade_" + i).value;
-            
             let gradePoint = currentGrades[gradeStr];
             
             if(status === "retake_3_capped" && gradePoint > currentGrades["D"]) {
@@ -572,22 +487,23 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
             }
             
             let pointsGained = credits * gradePoint;
-            
             termPoints += pointsGained;
             termHoursForGPA += credits;
 
-            if(status === "new") {
-                newTotalHours += credits;
-            }
+            if(status === "new") newTotalHours += credits;
         }
 
         let newTotalPoints = currentPoints + termPoints;
-        let newCGPA = newTotalPoints / newTotalHours;
-        let termGPA = termHoursForGPA > 0 ? termPoints / termHoursForGPA : 0;
+        let newCGPA = newTotalHours > 0 ? (newTotalPoints / newTotalHours) : 0;
+        let termGPA = termHoursForGPA > 0 ? (termPoints / termHoursForGPA) : 0;
 
         let resBox = document.getElementById("result_box");
         resBox.style.display = "block";
+        
+        let hoursMsg = inputMethod === "points" ? `<div class="calculated-hours">💡 بناءً على أرقامك، إجمالي الساعات المحسوبة عليك حالياً (شاملاً مواد الرسوب) هو: <strong>${totalHours} ساعة</strong>.</div>` : '';
+
         resBox.innerHTML = `
+            ${hoursMsg}
             معدل الترم المتوقع (Term GPA)
             <strong>${termGPA.toFixed(3)}</strong>
             <hr style="border:0; border-top:1px solid #b2dfdb; margin:15px 0;">
@@ -602,14 +518,9 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
         motiBox.style.display = "block";
     }
 
-    // دوال قسم الذكاء الاصطناعي
     function toggleAISection() {
         let section = document.getElementById("ai_section");
-        if (section.style.display === "block") {
-            section.style.display = "none";
-        } else {
-            section.style.display = "block";
-        }
+        section.style.display = section.style.display === "block" ? "none" : "block";
     }
 
     function copyPrompt() {
@@ -619,7 +530,6 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
             copyBtn.innerText = "✅ تم النسخ بنجاح!";
             copyBtn.style.backgroundColor = "#27ae60";
             copyBtn.style.color = "white";
-            
             setTimeout(() => {
                 copyBtn.innerText = "📋 انسخ البرومبت الآن";
                 copyBtn.style.backgroundColor = "#bdc3c7";
@@ -628,7 +538,6 @@ Reply in Arabic asking for my current CGPA, total hours, and my planned courses 
         });
     }
 
-    // تهيئة الصفحة
     setSystem('old');
     addCourse();
 </script>
